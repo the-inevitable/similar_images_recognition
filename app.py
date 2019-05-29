@@ -11,7 +11,7 @@ from PIL import Image
 from PIL import ImageFilter
 
 parser = argparse.ArgumentParser(description='finds similar images in given folder')
-parser.add_argument('-p', '--path', help='input path to folder with images', type=str)
+parser.add_argument('-p', '--path', help='input path to folder with images, e.g. ./dev_dataset', type=str)
 args = parser.parse_args()
 
 filepathes = glob.glob(args.path + '*' if args.path.endswith('/') else args.path + '/*')
