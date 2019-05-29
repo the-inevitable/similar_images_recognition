@@ -2,8 +2,5 @@
 # git
 .git
 
-# dataset
-dev_dataset
-
 # editor files
 .vscode
