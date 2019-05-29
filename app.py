@@ -20,9 +20,11 @@ DIFFERENTIATION_LIMIT = 6000
 
 def compare_all(filepaths): 
 	""" 
-	A function to through all files (I hope there are images only :)) 
+	A function to go through all files (I hope there are images only :)) 
 	and determine similar images by comparing each image
-	to every other image in a folder in a nested loop, which gives us O(n^2) per se
+	to every other image in a folder in a nested loop, which gives us O(n^2) per se. 
+	Takes a sequence of paths to each image as a parameter. 
+	Calls compare_two function on each subiteration if filenames are not identical.
 	"""
 	tstart_compare = time.time() 
 	for filepath in filepaths: 
