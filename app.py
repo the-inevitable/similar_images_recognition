@@ -8,13 +8,12 @@ import time
 
 import numpy as np
 from PIL import Image
-from PIL import ImageFilter
 
 parser = argparse.ArgumentParser(description='finds similar images in given folder')
 parser.add_argument('-p', '--path', help='input path to folder with images, e.g. ./dev_dataset', type=str)
 args = parser.parse_args()
 
-filepathes = glob.glob(args.path + '*' if args.path.endswith('/') else args.path + '/*')
+filepaths = glob.glob(args.path + '*' if args.path.endswith('/') else args.path + '/*')
 
 DIFFERENTIATION_LIMIT = 6000
 
@@ -27,12 +26,12 @@ def compare_all(filepaths):
 	Calls compare_two function on each subiteration if filenames are not identical.
 	"""
 	tstart_compare = time.time() 
-	for filepath in filepaths: 
-		for filepath_to_compare in filepathes: 
-			if filepath == filepath_to_compare:
-				break 
-			else:
-				compare_two(filepath, filepath_to_compare)  
+	simple_cache = []
+	pairs = ((f1,f2) for f1 in filepaths for f2 in filepaths if f1 != f2)
+	for pair in pairs: 
+		if pair not in simple_cache: 
+			simple_cache.append((pair[1], pair[0]))
+			compare_two(pair[0], pair[1]) 
 	print('comparing all files in folder took : ', time.time() - tstart_compare)
 
 def compare_two(path1, path2):
@@ -55,4 +54,4 @@ def compare_two(path1, path2):
 		print('{0} and {1}'.format(path1.split('/')[-1], path2.split('/')[-1]))
 
 if __name__ == '__main__': 
-	compare_all(filepathes)
+	compare_all(filepaths)
