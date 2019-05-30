@@ -40,7 +40,14 @@ def compare_two(path1, path2):
 	A function to calculate difference between
 	two images, presented as np arrays.
 	Takes 2 image paths as parameters (string).
-	Prints a message if given images are differenct enough.
+	Prints a message if given images have 
+	difference within the limit.
+	How it works: 
+	- each image from the input gets greyscaled, resized (i.e. normalized)
+	and converted to an array of integers,
+	- calculate difference between both image arrays and reduce it to a summation
+	- if calculated difference is less than above defined Limit,
+	then the images are quite similar.
 	""" 
 	images_container = [np.array(Image.open(f).convert('L').resize((16,16), resample=Image.BICUBIC)).astype(np.int) for f in [path1,path2]]
 	difference = np.abs(images_container[0] - images_container[1]).sum()
